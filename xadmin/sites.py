@@ -249,8 +249,8 @@ class AdminSite(object):
                     merge_opts.append(settings_class)
                 merge_opts.extend(opts)
                 ps = self._registry_plugins.get(klass, [])
-                plugins.extend(map(self._create_plugin(
-                    merge_opts), ps) if merge_opts else ps)
+                merge_opts = merge_opts or [admin_view_class]
+                plugins.extend(map(self._create_plugin(merge_opts), ps))
         return plugins
 
     def get_view_class(self, view_class, option_class=None, **opts):
